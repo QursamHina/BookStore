@@ -3,7 +3,7 @@
 This is a web-based e-book store application that allows users to browse, purchase, and review books online. It provides a comprehensive set of features for both customers and administrators, enhancing the online book shopping experience.
 
 
-##Features
+__Features
 
 User Registration and Login: Users can create accounts and log in using their username/password or social media accounts.
 Book Catalog and Search: A comprehensive catalog of books with search functionality for easy discovery.
