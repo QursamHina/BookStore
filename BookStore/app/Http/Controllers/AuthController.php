@@ -19,12 +19,12 @@ class AuthController extends Controller
         $user = $this->create($request->all());
 
         // Issue a Passport token for the newly registered user
-        $token = $user->createToken('MyApp')->accessToken;
+        //$token = $user->createToken('MyApp')->accessToken;
 
         // Return a JSON response with the user data and token
         return response()->json([
             'user' => $user,
-            'access_token' => $token,
+       //     'access_token' => $token,
         ]);
     }
 
@@ -50,12 +50,13 @@ class AuthController extends Controller
             $user = auth()->user();
 
             // Issue a Passport token for the authenticated user
-            $token = $user->createToken('MyApp')->accessToken;
+            $token = $user->createToken('token')->plainTextToken;
 
             // Return a JSON response with the user data and token
             return response()->json([
-                'user' => $user,
+               // 'user' => $user,
                 'access_token' => $token,
+                'message'=>'Login Successful',
             ]);
         }
 
