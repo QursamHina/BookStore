@@ -26,11 +26,6 @@ class ProductController extends Controller
     }
     public function createBookReview(Request $request, $id)
     {
-        // Validate user input for creating a review
-        $this->validate($request, [
-            'content' => 'required|string',
-            'book_id' => 'required',
-        ]);
     
         // Find the book by ID
         $book = Book::find($id);
@@ -39,16 +34,20 @@ class ProductController extends Controller
         if (!$book) {
             return response()->json(['error' => 'Book not found'], 404);
         }
-    
+         // Validate user input for creating a review
+         $this->validate($request, [
+            'book_id' => 'required',
+            'content' => 'required|string',
+        ]);
         // Create a new review
         $review = new Product([
             'content' => $request->input('content'),
-            'user_id' => auth()->user()->id, // Assuming you have authentication in place
+            'user_id' => auth()->user()->id,
+            'book_id'=>$request->input('book_id'),
         ]);
     
         // Save the review to the book's reviews relationship
         $book->reviews()->save($review);
-    
         return response()->json(['message' => 'Review created successfully']);
     }
     
@@ -61,21 +60,19 @@ class ProductController extends Controller
     
         // Find the book by ID
         $book = Book::find($id);
-    
+        
         // Check if the book exists
         if (!$book) {
             return response()->json(['error' => 'Book not found'], 404);
         }
-    
         // Create a new rating
         $rating = new Product([
             'rating' => $request->input('rating'),
-            'user_id' => auth()->user()->id, // Assuming you have authentication in place
+            'user_id' => auth()->user()->id, 
         ]);
     
         // Save the rating to the book's ratings relationship
         $book->ratings()->save($rating);
-    
         return response()->json(['message' => 'Rating created successfully']);
     }
     public function getBookReviews($id)

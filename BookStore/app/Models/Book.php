@@ -18,6 +18,10 @@ class Book extends Model
         'description',
         'cover_image',
         'price',
-        
     ];
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
 }

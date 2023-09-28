@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,9 +33,17 @@ Route::get('/books/{id}', [ProductController::class, 'getBookDetails']);
 
 
 
-Route::post('/api/books/{id}/reviews', [ProductController::class, 'createBookReview']);
-Route::post('/api/books/{id}/ratings', [ProductController::class, 'createBookRating']);
+Route::post('/books/{id}/reviews', [ProductController::class, 'createBookReview']);
+Route::post('/books/{id}/ratings', [ProductController::class, 'createBookRating']);
 
-Route::get('/api/books/{id}/reviews', [ProductController::class, 'getBookReviews']);
-Route::get('/api/books/{id}/ratings', [ProductController::class, 'getBookRatings']);
+Route::get('/books/{id}/reviews', [ProductController::class, 'getBookReviews']);
+Route::get('/books/{id}/ratings', [ProductController::class, 'getBookRatings']);
 
+
+//Add items to the cart
+Route::post('/cart/add/{id}', [CartController::class, 'addToCart']);
+
+Route::get('/cart', [CartController::class, 'index']);
+Route::patch('/cart/update/{id}', [CartController::class, 'updateCart']);
+Route::delete('/cart/remove/{id}', [CartController::class, 'removeFromCart']);
+Route::get('/cart/checkout', [CartController::class, 'checkout']);
